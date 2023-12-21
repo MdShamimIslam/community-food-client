@@ -3,12 +3,12 @@ import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCx7IVfIgtaJFic5t9se7LkS4rN1_5BvEU",
-  authDomain: "community-food-ae807.firebaseapp.com",
-  projectId: "community-food-ae807",
-  storageBucket: "community-food-ae807.appspot.com",
-  messagingSenderId: "659084946253",
-  appId: "1:659084946253:web:8140b757505570d0352504"
+  apiKey:import.meta.env.VITE_APIKEY,
+  authDomain:import.meta.env.VITE_AUTHDOMAIN,
+  projectId:import.meta.env.VITE_PROJECTID,
+  storageBucket:import.meta.env.VITE_STORAGEBUCKET,
+  messagingSenderId:import.meta.env.VITE_MESSAGINGSENDERID,
+  appId:import.meta.env.VITE_APPID,
 };
 
 const app = initializeApp(firebaseConfig);
