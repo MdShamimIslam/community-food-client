@@ -1,11 +1,14 @@
 import React from 'react';
+import errorImg from '../assets/images/error.png'
 import { Link } from 'react-router-dom';
 
 const ErrorPage = () => {
     return (
-        <div className=' text-center my-24'>
-            <h3 className='text-5xl font-bold'>Page Not Found</h3>
-            <p className='text-xl mt-4'><Link to='/'>Back to home</Link></p>
+        <div className='flex justify-center lg:my-44 md:my-20 my-16'>
+            <div className='text-center'>
+            <img className='lg:w-96 md:w-48 w-36' src={errorImg} alt="" />
+            <Link className='text-purple-700 underline' to='/'>Back to home</Link>
+            </div>
         </div>
     );
 };

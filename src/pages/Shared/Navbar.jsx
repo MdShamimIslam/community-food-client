@@ -5,33 +5,43 @@ import userImage from "../../assets/images/user.png";
 import logo from "../../assets/images/logo.png";
 
 const Navbar = () => {
-  const {user,logOut} = useContext(AuthContext);
+  const { user, logOut } = useContext(AuthContext);
 
   const navLinks = (
     <>
       <li>
-        <NavLink className='md:text-lg' to="/">Home</NavLink>
+        <NavLink className="md:text-lg" to="/">
+          Home
+        </NavLink>
       </li>
       <li>
-        <NavLink className='md:text-lg' to="/availableFoods">Available Foods</NavLink>
+        <NavLink className="md:text-lg" to="/availableFoods">
+          Available Foods
+        </NavLink>
       </li>
       <li>
-        <NavLink className='md:text-lg' to="/addFood">Add Food</NavLink>
+        <NavLink className="md:text-lg" to="/addFood">
+          Add Food
+        </NavLink>
       </li>
       <li>
-        <NavLink className='md:text-lg' to="/manageFood">Manage My Foods</NavLink>
+        <NavLink className="md:text-lg" to="/manageFood">
+          Manage My Foods
+        </NavLink>
       </li>
       <li>
-        <NavLink className='md:text-lg' to="/foodRequest">My Food Request</NavLink>
+        <NavLink className="md:text-lg" to="/foodRequest">
+          My Food Request
+        </NavLink>
       </li>
     </>
   );
 
-  const handleSignOut = ()=>{
+  const handleSignOut = () => {
     logOut()
-    .then(()=>{})
-    .catch(error=>console.dir(error))
-  }
+      .then(() => {})
+      .catch((error) => console.dir(error));
+  };
 
   return (
     <div className="navbar bg-base-100 mt-6">
@@ -60,32 +70,37 @@ const Navbar = () => {
             {navLinks}
           </ul>
         </div>
-       
+
         <div>
-        <Link to="/" className="flex items-center">
-          <img className="w-[50px]" src={logo} alt="website-logo" />
-           <p className="text-4xl font-bold"><Link to='/'>s.<span className="text-cyan-600">F</span>ood</Link></p>
-        </Link>
+          <Link to="/" className="flex items-center gap-4">
+            <img className="w-[45px]" src={logo} alt="website-logo" />
+            <p className="text-4xl font-bold">
+              <Link to="/">
+                <span className="text-cyan-500">F</span>ood
+                <span className="text-purple-500">B</span>uzz
+              </Link>
+            </p>
+          </Link>
         </div>
       </div>
       <div className="navbar-center hidden lg:flex">
         <ul className="menu menu-horizontal px-1">{navLinks}</ul>
       </div>
       <div className="navbar-end">
-      {user ? (
+        {user ? (
           <button
             onClick={handleSignOut}
-            className="btn md:btn-md btn-sm md:text-lg bg-gradient-to-r from-sky-500 to-indigo-500 text-black hover:text-white font-medium"
+            className="btn md:btn-md mr-2 btn-sm md:text-lg bg-gradient-to-r from-sky-500 to-purple-500 text-black hover:text-white font-medium"
           >
             Sign Out
           </button>
         ) : (
-          <button className="btn md:btn-md btn-sm md:text-lg font-medium bg-gradient-to-r from-sky-500 to-indigo-500">
+          <button className="btn mr-2 md:btn-md btn-sm md:text-lg font-medium bg-gradient-to-r from-sky-500 to-purple-500">
             <Link to="/signIn">Sign In</Link>
           </button>
         )}
 
-      {user ? (
+        {user ? (
           <label
             tabIndex={0}
             data-tip={user?.displayName}
@@ -101,13 +116,11 @@ const Navbar = () => {
             data-tip="No User"
             className="btn btn-ghost btn-circle avatar md:mr-2 tooltip"
           >
-            <div className="md:w-12 w-8  rounded-full ml-3">
+            <div className="md:w-12 w-8  rounded-full">
               <img alt="user-image" src={userImage} />
             </div>
           </label>
         )}
-
-        
       </div>
     </div>
   );
