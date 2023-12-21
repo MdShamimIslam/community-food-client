@@ -1,20 +1,68 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import { FcGoogle } from "react-icons/fc";
+import loginImg from '../../assets/images/login.png';
+import { AuthContext } from "../../Provider/AuthProvider";
+import { Helmet } from 'react-helmet-async';
+import Swal from 'sweetalert2';
 
 const SignIn = () => {
   const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => console.log('hook data---',data);
+  const {signIn,googleSignIn} = useContext(AuthContext);
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const onSubmit = (data) => {
+    signIn(data.email,data.password)
+    .then(res=>{
+      const user = res.user;
+      console.log(user);
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "User Sign In successfully",
+        showConfirmButton: false,
+        timer: 1500,
+      });
+      navigate(location?.state ? location.state : "/");
+    })
+    .catch(error=>console.dir(error))
+  };
+
+  const handleGoogleSignIn = () => {
+    googleSignIn()
+      .then((res) => {
+        const user = res.user;
+        console.log(user);
+
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "User Sign In Successfully",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        navigate(location?.state ? location.state : "/");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   return (
-    <div className="hero min-h-screen bg-base-200">
-      <div className="hero-content flex-col lg:flex-row-reverse">
-        <div className="text-center lg:text-left">
-        <h1 className="text-5xl font-bold">img</h1>
+    <div>
+      <Helmet>
+        <title>s.Food | Sign In</title>
+      </Helmet>
+      <div className="hero my-16 ">
+      <div className="hero-content flex-col lg:flex-row-reverse gap-16">
+        <div className="text-center lg:text-left ">
+          <img className="" src={loginImg} alt="login image" />
         </div>
-        <div className="card shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
-          <form className="card-body" onSubmit={handleSubmit(onSubmit)}>
-          <h1 className="text-2xl font-semibold text-center">Login now!</h1>
+        <div className="card shrink-0 w-full max-w-sm shadow-2xl p-6">
+          <form className="" onSubmit={handleSubmit(onSubmit)}>
+            <h1 className="text-2xl font-semibold text-center">Sign In now!</h1>
             <div className="form-control">
               <label className="label">
                 <span className="label-text">Email</span>
@@ -44,14 +92,32 @@ const SignIn = () => {
                 </a>
               </label>
             </div>
-            <div className="form-control mt-6">
-              <input className="btn btn-primary" type="submit" value='Sign In' />
+            <div className="form-control mt-2">
+              <input
+                className="btn btn-primary w-full"
+                type="submit"
+                value="Sign In"
+              />
             </div>
           </form>
-          <p className="text-center mb-6">Create new Account ? <Link to='/signUp' className="text-orange-500 font-semibold">Sign Up</Link></p>
+          <div className="divider">OR</div>
+            <div className="text-center mb-4">
+            <button onClick={handleGoogleSignIn} className="btn btn-outline w-full">
+              <FcGoogle className="text-xl"></FcGoogle>
+              Sign In with Google
+            </button>
+          </div>
+          <p className="text-center">
+            Don't have an account ?{" "}
+            <Link to="/signUp" className="text-orange-500 font-semibold">
+              Sign Up
+            </Link>
+          </p>
         </div>
       </div>
     </div>
+    </div>
+   
   );
 };
 
