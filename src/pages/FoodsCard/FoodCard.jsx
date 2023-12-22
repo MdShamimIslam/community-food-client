@@ -1,16 +1,15 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const FoodCard = ({ food }) => {
   console.log(food);
   const {
     _id,
-    donator_email,
     donator_img,
     donator_name,
     quantity,
     expired_date,
     location,
-    status,
     food_name,
     food_Des,
     food_img,
@@ -25,7 +24,13 @@ const FoodCard = ({ food }) => {
         />
       </figure>
       <div className="card-body">
-      <div className="my-4 flex items-center gap-4">
+      
+        <h2 className="card-title">{food_name}</h2>
+        <p>{food_Des}</p>
+        <p>Number of person to be served : <span className="font-semibold text-cyan-500">{quantity}</span></p>
+        <p>Pick Location : {location}</p>
+        <p className=" text-pink-500">Expired Date : {expired_date}</p>
+        <div className="my-4 flex items-center gap-4">
             <div className="avatar">
                 <div className="w-10 rounded-full ring ring-primary ring-offset-base-100 ring-offset-2">
                     <img src={donator_img} />
@@ -36,15 +41,10 @@ const FoodCard = ({ food }) => {
                 <p>{location}</p>
             </div>
         </div>
-        <h2 className="card-title">{food_name}</h2>
-        <p>{food_Des}</p>
-        <p>Number of person to be served : <span className="font-semibold text-cyan-500">{quantity}</span></p>
-        <p>Pick Location : {location}</p>
-        <p className=" text-pink-500">Expired Date : {expired_date}</p>
-        
-       
-        <div className="card-actions ">
+        <div>
+          <Link to={`/detailsFood/${_id}`}>
           <button className="btn text-white bg-gradient-to-r from-sky-500 to-purple-500 w-full">View Details</button>
+          </Link>
         </div>
       </div>
     </div>

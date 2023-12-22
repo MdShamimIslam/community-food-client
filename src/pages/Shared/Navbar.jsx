@@ -90,7 +90,7 @@ const Navbar = () => {
         {user ? (
           <button
             onClick={handleSignOut}
-            className="btn md:btn-md text-white mr-2 btn-sm md:text-lg bg-gradient-to-r from-sky-500 to-purple-500 text-black hover:text-white font-medium"
+            className="btn md:btn-md text-white mr-2 btn-sm md:text-lg bg-gradient-to-r from-sky-500 to-purple-500  hover:text-white font-medium"
           >
             Sign Out
           </button>
