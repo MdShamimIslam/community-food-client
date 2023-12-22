@@ -1,13 +1,12 @@
 import React from "react";
 import { Link, useLoaderData } from "react-router-dom";
+import ModalFood from "./ModalFood";
 
 const DetailsFood = () => {
   const food = useLoaderData();
   const {
-    _id,
     donator_img,
     donator_name,
-    donator_email,
     quantity,
     expired_date,
     location,
@@ -52,20 +51,7 @@ const DetailsFood = () => {
               </button>
             </Link>
           </div>
-          <dialog id="request-modal" className="modal">
-            <div className="modal-box">
-              <form method="dialog">
-                
-                <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">
-                  ✕
-                </button>
-              </form>
-              <h3 className="font-bold text-lg">Hello!</h3>
-              <p className="py-4">
-                Press ESC key or click on ✕ button to close
-              </p>
-            </div>
-          </dialog>
+          <ModalFood food={food}></ModalFood>
         </div>
       </div>
     </div>
