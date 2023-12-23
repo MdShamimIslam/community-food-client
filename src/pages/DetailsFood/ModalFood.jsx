@@ -18,6 +18,7 @@ const ModalFood = ({ food }) => {
     food_name,
     food_img,
   } = food;
+
   return (
     <div>
       <dialog id="request-modal" className="modal">
@@ -138,17 +139,17 @@ const ModalFood = ({ food }) => {
             </label>
             <label className="form-control w-full">
               <div className="label">
-                <span className="label-text">Food Description</span>
+                <span className="label-text">Say Something</span>
               </div>
               <input
                 type="text"
-                placeholder="Description here"
+                placeholder="type here"
                 className="input input-bordered w-full"
               />
             </label>
             <label className="form-control w-full">
               <div className="label">
-                <span className="label-text">Your Donation Money</span>
+                <span className="label-text">Your Donation Money (if you want)</span>
               </div>
               <input
                 type="text"

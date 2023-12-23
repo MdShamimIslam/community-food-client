@@ -2,7 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const FoodCard = ({ food }) => {
-  console.log(food);
   const {
     _id,
     donator_img,

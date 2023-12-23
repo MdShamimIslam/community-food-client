@@ -107,7 +107,7 @@ const AddFood = () => {
           </label>
           <label className="form-control w-full">
             <div className="label">
-              <span className="label-text">Donator Image URL</span>
+              <span className="label-text">Your Image URL</span>
             </div>
             <input
               type="text"
@@ -121,7 +121,7 @@ const AddFood = () => {
           </label>
           <label className="form-control w-full">
             <div className="label">
-              <span className="label-text">Donator name</span>
+              <span className="label-text">Your name</span>
             </div>
             <input
               type="text"
@@ -135,7 +135,7 @@ const AddFood = () => {
           </label>
           <label className="form-control w-full">
             <div className="label">
-              <span className="label-text">Donator Email</span>
+              <span className="label-text">Your Email</span>
             </div>
             <input
               type="email"
