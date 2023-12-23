@@ -3,6 +3,12 @@ import { AuthContext } from "../../Provider/AuthProvider";
 
 const ModalFood = ({ food }) => {
   const { user } = useContext(AuthContext);
+
+  const originalDate = new Date();
+  const options = { day: 'numeric', month: 'numeric', year: 'numeric' };
+  // Format the date
+  const formattedDate = originalDate.toLocaleDateString('en-GB', options);
+  
   const {
     _id,
     donator_name,
@@ -100,7 +106,7 @@ const ModalFood = ({ food }) => {
               </div>
               <input
                 type="text"
-                value="explore korte hobe"
+                value={formattedDate}
                 readOnly
                 placeholder="Type here"
                 className="input input-bordered w-full"

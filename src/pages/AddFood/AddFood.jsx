@@ -8,28 +8,26 @@ const AddFood = () => {
   const { user } = useContext(AuthContext);
 
   const onSubmit = (data) => {
-    fetch('http://localhost:5000/createFood',{
-        method:'POST',
-        headers:{
-            'content-type':'application/json'
-        },
-        body:JSON.stringify(data)
+    fetch("http://localhost:5000/createFood", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(data),
     })
-    .then(res=>res.json())
-    .then(data=>{
-        if(data.insertedId){
-            Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "Food Added Successfully",
-                showConfirmButton: false,
-                timer: 1500,
-              });
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Food Added Successfully",
+            showConfirmButton: false,
+            timer: 1500,
+          });
         }
-    })
+      });
   };
-
- 
 
   return (
     <div className="my-16 w-4/5 mx-auto">
@@ -49,7 +47,7 @@ const AddFood = () => {
           </label>
           <label className="form-control w-full">
             <div className="label">
-              <span className="label-text">Food Image</span>
+              <span className="label-text">Food Image URL</span>
             </div>
             <input
               type="text"
@@ -88,7 +86,7 @@ const AddFood = () => {
               <span className="label-text">Expired Date</span>
             </div>
             <input
-              type="text"
+              type="date"
               placeholder="Type here"
               className="input input-bordered"
               {...register("expired_date")}
