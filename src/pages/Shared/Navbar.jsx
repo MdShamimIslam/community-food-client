@@ -10,28 +10,28 @@ const Navbar = () => {
   const navLinks = (
     <>
       <li>
-        <NavLink className="md:text-lg" to="/">
+        <NavLink className="text-[16px]" to="/">
           Home
         </NavLink>
       </li>
       <li>
-        <NavLink className="md:text-lg" to="/availableFoods">
+        <NavLink className="text-[16px]" to="/availableFoods">
           Available Foods
         </NavLink>
       </li>
       <li>
-        <NavLink className="md:text-lg" to="/addFood">
+        <NavLink className="text-[16px]" to="/addFood">
           Add Food
         </NavLink>
       </li>
       <li>
-        <NavLink className="md:text-lg" to="/manageFood">
+        <NavLink className="text-[16px]" to="/manageFood">
           Manage My Foods
         </NavLink>
       </li>
       <li>
-        <NavLink className="md:text-lg" to="/foodRequest">
-          My Food Request
+        <NavLink className="text-[16px]" to="/foodRequest">
+          My Request Food 
         </NavLink>
       </li>
     </>
@@ -83,19 +83,19 @@ const Navbar = () => {
           </Link>
         </div>
       </div>
-      <div className="navbar-center hidden lg:flex ml-16">
+      <div className="navbar-center hidden lg:flex ml-20">
         <ul className="menu menu-horizontal px-1">{navLinks}</ul>
       </div>
       <div className="navbar-end">
         {user ? (
           <button
             onClick={handleSignOut}
-            className="btn md:btn-md text-white mr-2 btn-sm md:text-lg bg-gradient-to-r from-sky-500 to-purple-500  hover:text-white font-medium"
+            className="btn text-white mr-2 font-light text-[14px] bg-gradient-to-r from-sky-500 to-purple-500"
           >
             Sign Out
           </button>
         ) : (
-          <button className="btn mr-2 text-white md:btn-md btn-sm md:text-lg font-medium bg-gradient-to-r from-sky-500 to-purple-500">
+          <button className="btn text-white btn-ghost mr-2 font-light text-[14px] bg-gradient-to-r from-sky-500 to-purple-500">
             <Link to="/signIn">Sign In</Link>
           </button>
         )}

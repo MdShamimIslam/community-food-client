@@ -69,7 +69,7 @@ const FoodRequest = () => {
                     <div className="mask mask-squircle w-12 h-12">
                       <img
                         src={food.food_img}
-                        alt="Avatar Tailwind CSS Component"
+                        alt="food-image"
                       />
                     </div>
                   </div>

@@ -8,12 +8,38 @@ const AddFood = () => {
   const { user } = useContext(AuthContext);
 
   const onSubmit = (data) => {
+    const {donator_img,
+      donator_name,
+      donator_email,
+      status,
+      quantity,
+      expired_date,
+      location,
+      food_name,
+      food_Des,
+      food_img,} = data;
+
+    const quantityInt = parseInt(quantity);
+
+    const foodInfo = {
+      donator_name,
+      donator_img,
+      donator_email,
+      quantity : quantityInt,
+      location,
+      expired_date,
+      food_name,
+      food_img,
+      food_Des,
+      status
+    }
+
     fetch("http://localhost:5000/createFood", {
       method: "POST",
       headers: {
         "content-type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify(foodInfo),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -62,7 +88,7 @@ const AddFood = () => {
               <span className="label-text">Food Quantity</span>
             </div>
             <input
-              type="number"
+              type="text"
               placeholder="Type here"
               className="input input-bordered"
               {...register("quantity")}
