@@ -1,8 +1,8 @@
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+# My Project name's  (FoodBuzz)
+## Project Live Link : https://community-food-ae807.web.app
+-  ### features of my project :
+    - Our website is an food related website which has different foods .
+    - Anyone with extra food can donate it here
+    - If anyone needs food he can take it from here
+    - Donator can deliver food upon request
+    - If someone login to the website he can add the food
