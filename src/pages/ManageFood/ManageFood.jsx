@@ -3,6 +3,7 @@ import React, { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
 import { Link } from "react-router-dom";
+import { Helmet } from "react-helmet-async";
 
 const ManageFood = () => {
   const { user } = useContext(AuthContext);
@@ -10,7 +11,7 @@ const ManageFood = () => {
     queryKey: ["foods"],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/createFood?email=${user?.email}`
+        `https://community-food-server-snowy.vercel.app/createFood?email=${user?.email}`
       );
       return res.json();
     },
@@ -27,9 +28,12 @@ const ManageFood = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/createFood/${food._id}`, {
-          method: "DELETE",
-        })
+        fetch(
+          `https://community-food-server-snowy.vercel.app/createFood/${food._id}`,
+          {
+            method: "DELETE",
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             if (data.deletedCount > 0) {
@@ -47,6 +51,9 @@ const ManageFood = () => {
 
   return (
     <div className="my-16">
+      <Helmet>
+        <title>FoodBuzz | Manage Food</title>
+      </Helmet>
       <div className="overflow-x-auto">
         <table className="table">
           <thead>
@@ -54,7 +61,7 @@ const ManageFood = () => {
               <th>Food Image</th>
               <th>Food Name</th>
               <th>Pick up Location</th>
-              <th>Expired Date</th> 
+              <th>Expired Date</th>
               <th>Delete Action</th>
               <th>Manage Action</th>
               <th>Update Action</th>
@@ -70,11 +77,9 @@ const ManageFood = () => {
                     </div>
                   </div>
                 </td>
-                <td>
-                  {food.food_name}
-                </td>
-                <td>{food.location}</td>                                                                                                                                                                               
-                <td>${food.expired_date}</td>
+                <td>{food.food_name}</td>
+                <td>{food.location}</td>
+                <td>{food.expired_date}</td>
                 <td>
                   <button
                     onClick={() => handleDeleteFood(food)}
@@ -83,14 +88,13 @@ const ManageFood = () => {
                     Delete
                   </button>
                 </td>
-                
+
                 <td>
-                  <button
-                    onClick={() => handleManageUser()}
-                    className="btn text-white font-light btn-sm bg-gradient-to-r from-sky-500 to-purple-500"
-                  >
-                    Manage
-                  </button>
+                  <Link to={`/foodManage/${food._id}`}>
+                    <button className="btn text-white font-light btn-sm bg-gradient-to-r from-sky-500 to-purple-500">
+                      Manage
+                    </button>
+                  </Link>
                 </td>
                 <td>
                   <Link to={`/updateFood/${food._id}`}>

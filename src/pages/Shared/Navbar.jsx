@@ -73,8 +73,8 @@ const Navbar = () => {
 
         <div>
           <Link to="/" className="flex items-center">
-            <img className="w-[45px]" src={logo} alt="website-logo" />
-            <p className="text-3xl font-bold">
+            <img className="md:w-[45px] w-[30px] " src={logo} alt="website-logo" />
+            <p className="md:text-3xl text-xl font-bold">
               <Link to="/">
                 <span className="text-cyan-500">F</span>ood
                 <span className="text-purple-500">B</span>uzz
@@ -106,7 +106,7 @@ const Navbar = () => {
             data-tip={user?.displayName}
             className="btn btn-ghost btn-circle avatar  tooltip"
           >
-            <div className="md:w-12 w-8 rounded-full md:mt-0 mt-2 md:ml-0 ml-2">
+            <div className="w-12  rounded-full ">
               <img alt="user-image" src={user?.photoURL} />
             </div>
           </label>
@@ -116,7 +116,7 @@ const Navbar = () => {
             data-tip="No User"
             className="btn btn-ghost btn-circle avatar md:mr-2 tooltip"
           >
-            <div className="md:w-12 w-8  rounded-full">
+            <div className="w-12 rounded-full">
               <img alt="user-image" src={userImage} />
             </div>
           </label>

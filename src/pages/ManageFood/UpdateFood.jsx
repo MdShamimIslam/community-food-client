@@ -5,43 +5,50 @@ import Swal from "sweetalert2";
 
 const UpdateFood = () => {
   const food = useLoaderData();
-  const {_id, quantity, expired_date, location, food_name, food_Des, food_img } = food;
+  const {
+    _id,
+    quantity,
+    expired_date,
+    location,
+    food_name,
+    food_Des,
+    food_img,
+  } = food;
 
   const { register, handleSubmit } = useForm();
-  // const { user } = useContext(AuthContext);
 
   const onSubmit = (data) => {
-    console.log(data);
-    const { quantity, expired_date, location, food_name, food_Des, food_img } = data;
-      const quantityInt = parseInt(quantity);
-      const foodInfo = {
-        food_name,
-        food_img,
-        food_Des,
-        quantity : quantityInt,
-        location,
-        expired_date
-      }
-      fetch(`http://localhost:5000/createFood/${_id}`, {
-        method: "PUT",
-        headers: {
-          "content-type": "application/json",
-        },
-        body: JSON.stringify(foodInfo),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-            console.log("response----",data);
-          if (data.modifiedCount > 0 ) {
-            Swal.fire({
-              position: "top-end",
-              icon: "success",
-              title: "Updated Successfully",
-              showConfirmButton: false,
-              timer: 1500,
-            });
-          }
-        });
+    const { quantity, expired_date, location, food_name, food_Des, food_img } =
+      data;
+    const quantityInt = parseInt(quantity);
+    const foodInfo = {
+      food_name,
+      food_img,
+      food_Des,
+      quantity: quantityInt,
+      location,
+      expired_date,
+    };
+    fetch(`https://community-food-server-snowy.vercel.app/createFood/${_id}`, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(foodInfo),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("response----", data);
+        if (data.modifiedCount > 0) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Updated Successfully",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
   };
 
   return (

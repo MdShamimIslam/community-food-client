@@ -1,6 +1,7 @@
 import React from "react";
-import { Link, useLoaderData } from "react-router-dom";
+import {useLoaderData } from "react-router-dom";
 import ModalFood from "./ModalFood";
+import { Helmet } from "react-helmet-async";
 
 const DetailsFood = () => {
   const food = useLoaderData();
@@ -12,13 +13,18 @@ const DetailsFood = () => {
     location,
     food_name,
     food_img,
+    status
   } = food;
+  console.log(food);
 
   return (
-    <div className="my-16">
-      <div className="card w-2/3 bg-base-100 shadow-xl mx-auto">
+    <div className="my-16 p-4">
+      <Helmet>
+        <title>FoodBuzz | Details Food</title>
+      </Helmet>
+      <div className="card lg:w-2/3 bg-base-100 shadow-xl mx-auto">
         <figure>
-          <img src={food_img} className="w-full h-[450px]" alt="food-image" />
+          <img src={food_img} className="w-full md:h-[450px] h[350px]" alt="food-image" />
         </figure>
         <div className="card-body">
           <h2 className="card-title">{food_name}</h2>
@@ -40,16 +46,20 @@ const DetailsFood = () => {
             </div>
           </div>
           <div>
-            <Link to="">
-              <button
-                onClick={() =>
-                  document.getElementById("request-modal").showModal()
-                }
-                className="btn text-white bg-gradient-to-r from-sky-500 to-purple-500 w-full"
-              >
-                Request Food
-              </button>
-            </Link>
+          {
+    status === 'Delivered' ?
+    <button>uff</button>
+    :
+    <button
+              onClick={() =>
+                document.getElementById("request-modal").showModal()
+              }
+              className="btn text-white bg-gradient-to-r from-sky-500 to-purple-500 w-full"
+            >
+              Request Food
+            </button>
+  }
+            
           </div>
           <ModalFood food={food}></ModalFood>
         </div>

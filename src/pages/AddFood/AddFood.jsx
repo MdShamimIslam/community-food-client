@@ -2,13 +2,15 @@ import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const AddFood = () => {
   const { register, handleSubmit } = useForm();
   const { user } = useContext(AuthContext);
 
   const onSubmit = (data) => {
-    const {donator_img,
+    const {
+      donator_img,
       donator_name,
       donator_email,
       status,
@@ -17,7 +19,8 @@ const AddFood = () => {
       location,
       food_name,
       food_Des,
-      food_img,} = data;
+      food_img,
+    } = data;
 
     const quantityInt = parseInt(quantity);
 
@@ -25,16 +28,16 @@ const AddFood = () => {
       donator_name,
       donator_img,
       donator_email,
-      quantity : quantityInt,
+      quantity: quantityInt,
       location,
       expired_date,
       food_name,
       food_img,
       food_Des,
-      status
-    }
+      status,
+    };
 
-    fetch("http://localhost:5000/createFood", {
+    fetch("https://community-food-server-snowy.vercel.app/createFood", {
       method: "POST",
       headers: {
         "content-type": "application/json",
@@ -57,6 +60,9 @@ const AddFood = () => {
 
   return (
     <div className="my-16 w-4/5 mx-auto">
+      <Helmet>
+        <title>FoodBuzz | Add Food</title>
+      </Helmet>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <label className="form-control w-full">

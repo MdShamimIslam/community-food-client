@@ -11,53 +11,84 @@ import ManageFood from "../pages/ManageFood/ManageFood";
 import FoodRequest from "../pages/FoodRequest/FoodRequest";
 import DetailsFood from "../pages/DetailsFood/DetailsFood";
 import UpdateFood from "../pages/ManageFood/UpdateFood";
+import SingleManageFood from "../pages/ManageFood/SingleManageFood";
 
 const routes = createBrowserRouter([
-    {
-        path:'/',
-        errorElement:<ErrorPage></ErrorPage>,
-        element:<Main></Main>,
-        children:[
-            {
-                path:'/',
-                element:<Home></Home>
-            },
-            {
-                path:'/availableFoods',
-                element:<AvailableFood></AvailableFood>
-            },
-            {
-                path:'/detailsFood/:id',
-                element:<DetailsFood></DetailsFood>,
-                loader:({params})=> fetch(`http://localhost:5000/foods/${params.id}`)
-            },
-            {
-                path:'/addFood',
-                element:<PrivateRoute><AddFood></AddFood></PrivateRoute>
-            },
-            {
-                path:'/updateFood/:id',
-                element:<PrivateRoute><UpdateFood></UpdateFood></PrivateRoute>,
-                loader:({params})=>fetch(`http://localhost:5000/createFood/${params.id}`)
-            },
-            {
-                path:'/manageFood',
-                element:<PrivateRoute><ManageFood></ManageFood></PrivateRoute>
-            },
-            {
-                path:'/foodRequest',
-                element:<PrivateRoute><FoodRequest></FoodRequest></PrivateRoute>
-            },
-            {
-                path:'/signIn',
-                element:<SignIn></SignIn>
-            },
-            {
-                path:'/signUp',
-                element:<SignUp></SignUp>
-            }
-        ]
-    }
-])
+  {
+    path: "/",
+    errorElement: <ErrorPage></ErrorPage>,
+    element: <Main></Main>,
+    children: [
+      {
+        path: "/",
+        element: <Home></Home>,
+      },
+      {
+        path: "/availableFoods",
+        element: <AvailableFood></AvailableFood>,
+      },
+      {
+        path: "/detailsFood/:id",
+        element: <DetailsFood></DetailsFood>,
+        loader: ({ params }) =>
+          fetch(
+            `https://community-food-server-snowy.vercel.app/foods/${params.id}`
+          ),
+      },
+      {
+        path: "/addFood",
+        element: (
+          <PrivateRoute>
+            <AddFood></AddFood>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/updateFood/:id",
+        element: (
+          <PrivateRoute>
+            <UpdateFood></UpdateFood>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(
+            `https://community-food-server-snowy.vercel.app/createFood/${params.id}`
+          ),
+      },
+      {
+        path: "/manageFood",
+        element: (
+          <PrivateRoute>
+            <ManageFood></ManageFood>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/foodManage/:id",
+        element: (
+          <PrivateRoute>
+            <SingleManageFood></SingleManageFood>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/foodRequest",
+        element: (
+          <PrivateRoute>
+            <FoodRequest></FoodRequest>
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/signIn",
+        element: <SignIn></SignIn>,
+      },
+      {
+        path: "/signUp",
+        element: <SignUp></SignUp>,
+      },
+    ],
+  },
+]);
 
 export default routes;

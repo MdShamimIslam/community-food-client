@@ -2,6 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import React, { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const FoodRequest = () => {
   const { user } = useContext(AuthContext);
@@ -9,7 +10,7 @@ const FoodRequest = () => {
     queryKey: ["foods"],
     queryFn: async () => {
       const res = await fetch(
-        `http://localhost:5000/requestFood?email=${user?.email}`
+        `https://community-food-server-snowy.vercel.app/requestFood?email=${user?.email}`
       );
       return res.json();
     },
@@ -27,9 +28,12 @@ const FoodRequest = () => {
       confirmButtonText: "Yes, remove it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:5000/requestFood/${food._id}`, {
-          method: "DELETE",
-        })
+        fetch(
+          `https://community-food-server-snowy.vercel.app/requestFood/${food._id}`,
+          {
+            method: "DELETE",
+          }
+        )
           .then((res) => res.json())
           .then((data) => {
             if (data.deletedCount > 0) {
@@ -47,6 +51,9 @@ const FoodRequest = () => {
 
   return (
     <div className="my-16">
+      <Helmet>
+        <title>FoodBuzz | Food Request</title>
+      </Helmet>
       <div className="overflow-x-auto">
         <table className="table">
           <thead>
@@ -67,10 +74,7 @@ const FoodRequest = () => {
                 <td>
                   <div className="avatar">
                     <div className="mask mask-squircle w-12 h-12">
-                      <img
-                        src={food.food_img}
-                        alt="food-image"
-                      />
+                      <img src={food.food_img} alt="food-image" />
                     </div>
                   </div>
                 </td>

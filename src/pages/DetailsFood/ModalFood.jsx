@@ -2,6 +2,7 @@ import React, { useContext } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { Controller, useForm } from "react-hook-form";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
 
 const ModalFood = ({ food }) => {
   const { user } = useContext(AuthContext);
@@ -25,39 +26,60 @@ const ModalFood = ({ food }) => {
 
   const onSubmit = (data) => {
     const {
-      food_name,food_img,food_request_id,donate_money,food_des,
-      donator_email,donator_name,requester_email,request_date,location,expired_date,
+      food_name,
+      food_img,
+      food_request_id,
+      donate_money,
+      food_des,
+      donator_email,
+      donator_name,
+      requester_email,
+      request_date,
+      location,
+      expired_date,
     } = data;
     const requestInfo = {
-      food_name,food_img,food_request_id,donate_money,food_des,location,status,
-      donator_email,donator_name,requester_email,request_date,expired_date,
-      requester_name:user?.displayName,
-      requester_img:user?.photoURL,
-
-    }
-    fetch('http://localhost:5000/requestFood',{
-      method:'POST',
-      headers:{
-        'content-type':'application/json'
+      food_name,
+      food_img,
+      food_request_id,
+      donate_money,
+      food_des,
+      location,
+      status,
+      donator_email,
+      donator_name,
+      requester_email,
+      request_date,
+      expired_date,
+      requester_name: user?.displayName,
+      requester_img: user?.photoURL,
+    };
+    fetch("https://community-food-server-snowy.vercel.app/requestFood", {
+      method: "POST",
+      headers: {
+        "content-type": "application/json",
       },
-      body:JSON.stringify(requestInfo)
+      body: JSON.stringify(requestInfo),
     })
-    .then(res=>res.json())
-    .then(data=>{
-      if(data.insertedId){
-        Swal.fire({
-          position: "top-end",
-          icon: "success",
-          title: "Your Request Successfully",
-          showConfirmButton: false,
-          timer: 1500,
-        });
-      }
-    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.insertedId) {
+          Swal.fire({
+            position: "top-end",
+            icon: "success",
+            title: "Your Request Successfully",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      });
   };
 
   return (
     <div>
+      <Helmet>
+        <title>FoodBuzz | Modal Food</title>
+      </Helmet>
       <dialog id="request-modal" className="modal">
         <div className="modal-box">
           <form method="dialog">
