@@ -8,8 +8,8 @@ import { Helmet } from "react-helmet-async";
 import Swal from "sweetalert2";
 
 const SignUp = () => {
-  const { register, handleSubmit } = useForm();
-  const { createUser, userProfileUpdate, googleSignIn } =
+  const { register, handleSubmit, formState: { errors },reset } = useForm();
+  const { createUser, userProfileUpdate, googleSignIn,logOut } =
     useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
@@ -29,7 +29,7 @@ const SignUp = () => {
 
         userProfileUpdate(data.name, data.photoURL)
           .then(() => {
-            // e.target.reset();
+            reset();
             Swal.fire({
               position: "top-end",
               icon: "success",
@@ -124,9 +124,34 @@ const SignUp = () => {
                   type="password"
                   placeholder="password"
                   className="input input-bordered"
-                  {...register("password")}
-                  required
+                  {...register("password", {
+                    required: true,
+                    maxLength: 10,
+                    minLength: 6,
+                    pattern:
+                      /(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-])/,
+                  })}
                 />
+                {errors.password?.type === "required" && (
+                  <span className="text-red-600">
+                    Password field is required
+                  </span>
+                )}
+                {errors.password?.type === "minLength" && (
+                  <span className="text-red-600">
+                    Password must be at least 6 characters
+                  </span>
+                )}
+                {errors.password?.type === "maxLength" && (
+                  <span className="text-red-600">
+                    Password less than 10 characters
+                  </span>
+                )}
+                {errors.password?.type === "pattern" && (
+                  <span className="text-red-600">
+                    At least one uppercase , one lowercase , special character and one digit
+                  </span>
+                )}
               </div>
               <div className="form-control mt-3">
                 <input

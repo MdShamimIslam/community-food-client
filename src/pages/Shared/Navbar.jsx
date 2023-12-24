@@ -31,7 +31,7 @@ const Navbar = () => {
       </li>
       <li>
         <NavLink className="text-[16px]" to="/foodRequest">
-          My Request Food 
+          My Request Food
         </NavLink>
       </li>
     </>
@@ -44,7 +44,7 @@ const Navbar = () => {
   };
 
   return (
-    <div className="navbar bg-base-100 mt-6">
+    <div className="navbar mt-6">
       <div className="navbar-start">
         <div className="dropdown">
           <div tabIndex={0} role="button" className="btn btn-ghost lg:hidden">
@@ -72,9 +72,9 @@ const Navbar = () => {
         </div>
 
         <div>
-          <Link to="/" className="flex items-center gap-4">
+          <Link to="/" className="flex items-center">
             <img className="w-[45px]" src={logo} alt="website-logo" />
-            <p className="text-4xl font-bold">
+            <p className="text-3xl font-bold">
               <Link to="/">
                 <span className="text-cyan-500">F</span>ood
                 <span className="text-purple-500">B</span>uzz

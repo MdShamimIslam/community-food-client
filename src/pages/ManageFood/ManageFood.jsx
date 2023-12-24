@@ -1,78 +1,121 @@
-// import React, { useContext, useEffect, useState } from 'react';
-import React from 'react';
-import { useTable } from 'react-table';
-import fakeData from "../../MOCK_DATA.json";
-import './ManageFood.css';
-// import { AuthContext } from '../../Provider/AuthProvider';
+import { useQuery } from '@tanstack/react-query';
+import React, { useContext } from 'react';
+import { AuthContext } from '../../Provider/AuthProvider';
+import Swal from 'sweetalert2';
 
 const ManageFood = () => {
-//     const {user} = useContext(AuthContext);
-//     const [foods,setFoods] = useState([]);
+    const { user } = useContext(AuthContext);
+    const { data: foods,refetch } = useQuery({
+        queryKey: ["foods"],
+        queryFn: async () => {
+          const res = await fetch(
+            `http://localhost:5000/createFood?email=${user?.email}`
+          );
+          return res.json();
+        },
+      });
 
-// useEffect(()=>{
-//     fetch(`http://localhost:5000/createFood?email=${user?.email}`)
-//     .then(res=>res.json())
-//     .then(data=>setFoods(data))
-// },[])
-
-const data = React.useMemo(() => fakeData, []);
-  const columns = React.useMemo(
-    () => [
-      
-      {
-        Header: "First Name",
-        accessor: "first_name",
-      },
-      {
-        Header: "Last Name",
-        accessor: "last_name",
-      },
-      {
-        Header: "Email",
-        accessor: "email",
-      },
-      {
-        Header: "Gender",
-        accessor: "gender",
-      },
-      {
-        Header: "University",
-        accessor: "university",
-      },
-    ],
-    []
-  );
-
-  const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } =
-    useTable({ columns, data });
+      const handleRemoveRequest = (food) => {
+        Swal.fire({
+          title: "Are you sure?",
+          text: `You want to delete ${food.food_name}`,
+          icon: "warning",
+          showCancelButton: true,
+          confirmButtonColor: "#3085d6",
+          cancelButtonColor: "#d33",
+          confirmButtonText: "Yes, delete it!",
+        }).then((result) => {
+          if (result.isConfirmed) {
+            fetch(`http://localhost:5000/createFood/${food._id}`, {
+              method: "DELETE",
+            })
+              .then((res) => res.json())
+              .then((data) => {
+                if (data.deletedCount > 0) {
+                  Swal.fire({
+                    title: "Removed!",
+                    text: "Your request has been deleted.",
+                    icon: "success",
+                  });
+                  refetch();
+                }
+              });
+          }
+        });
+      };
 
     return (
-        <div className="my-12">
-        <table id='customers' {...getTableProps()}>
-          <thead>
-            {headerGroups.map((headerGroup) => (
-              <tr {...headerGroup.getHeaderGroupProps()}>
-                {headerGroup.headers.map((column) => (
-                  <th {...column.getHeaderProps()}>
-                    {column.render("Header")}
-                  </th>
-                ))}
+        <div className="my-16">
+        <div className="overflow-x-auto">
+          <table className="table">
+            <thead>
+              <tr className="">
+                <th>Food Image</th>
+                <th>Donar Name</th>
+                <th>Pick up Location</th>
+                <th>Expired Date</th>
+                <th>Request Date</th>
+                <th>Price</th>
+                <th>Status</th>
+                <th>Action</th>
+                <th>Action</th>
+                <th>Action</th>
               </tr>
-            ))}
-          </thead>
-          <tbody {...getTableBodyProps()}>
-            {rows.map((row) => {
-              prepareRow(row);
-              return (
-                <tr {...row.getRowProps()}>
-                  {row.cells.map((cell) => (
-                    <td {...cell.getCellProps()}> {cell.render("Cell")} </td>
-                  ))}
+            </thead>
+            <tbody>
+              {foods?.map((food) => (
+                <tr key={food._id}>
+                  <td>
+                    <div className="avatar">
+                      <div className="mask mask-squircle w-12 h-12">
+                        <img
+                          src={food.food_img}
+                          alt="food-image"
+                        />
+                      </div>
+                    </div>
+                  </td>
+                  <td>
+                    <div className="flex items-center gap-3">
+                      <div>
+                        <div className="">{food.donator_name}</div>
+                      </div>
+                    </div>
+                  </td>
+                  <td>{food.location}</td>
+                  <td>{food.expired_date}</td>
+                  <td>{food.request_date}</td>
+                  <td>${food.donate_money}</td>
+                  <td>{food.status}</td>
+                  <td>
+                    <button
+                      onClick={() => handleRemoveRequest(food)}
+                      className="btn btn-sm bg-gradient-to-r from-sky-500 to-purple-500"
+                    >
+                      Delete
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      onClick={() => handleUpdateFood()}
+                      className="btn btn-sm bg-gradient-to-r from-sky-500 to-purple-500"
+                    >
+                      Update
+                    </button>
+                  </td>
+                  <td>
+                    <button
+                      onClick={() => handleManageUser()}
+                      className="btn btn-sm bg-gradient-to-r from-sky-500 to-purple-500"
+                    >
+                      Manage
+                    </button>
+                  </td>
                 </tr>
-              );
-            })}
-          </tbody>
-        </table>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     );
 };
